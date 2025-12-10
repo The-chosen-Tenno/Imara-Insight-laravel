@@ -15,4 +15,9 @@ class Project extends Model
         'status'
     ];
     use HasFactory;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
