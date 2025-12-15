@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Request\StoreProjectRequest;
 
-use  App\Http\Services\ProjectService;
+use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
+use App\Http\Requests\UpdateProjectStatusRequest;
+use Illuminate\Http\Request;
+use App\Http\Services\ProjectService;
 use App\Http\Controllers\Controller;
 
 class ProjectController extends Controller
@@ -24,11 +26,26 @@ class ProjectController extends Controller
 
     public function ProjectById($id)
     {
+        return $this->ProjectService->getAllProjectById($id);
+    }
+
+    public function ProjectByUserId($id)
+    {
         return $this->ProjectService->getAllProjectByUserId($id);
     }
 
     public function NewProject(StoreProjectRequest $request)
     {
         return $this->ProjectService->createNewProject($request);
+    }
+
+    public function UpdateProject(UpdateProjectRequest $request, $id)
+    {
+        return $this->ProjectService->updateProject($request, $id);
+    }
+
+    public function UpdateStatus(UpdateProjectStatusRequest $request, $id)
+    {
+        return $this->ProjectService->UpdateProjectStatus($request, $id);
     }
 }

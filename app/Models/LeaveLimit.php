@@ -30,4 +30,9 @@ class LeaveLimit extends Model
         'total_short_leave',
     ];
     use HasFactory;
+
+    public function user()
+    {
+        return   $this->belongsTo(User::class);
+    }
 }

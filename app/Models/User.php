@@ -18,8 +18,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'full_name',
+        'user_name',
         'email',
+        'user_status',
+        'status',
+        'photo',
+        'role',
         'password',
     ];
 
@@ -46,5 +51,10 @@ class User extends Authenticatable
     public function projects()
     {
         return $this->hasMany(Project::class);
+    }
+
+    public function leaveLimit()
+    {
+        return $this->hasOne(LeaveLimit::class);
     }
 }

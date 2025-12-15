@@ -11,7 +11,7 @@ class StoreProjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,7 +26,26 @@ class StoreProjectRequest extends FormRequest
             'project_name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'project_type' => 'required|string|in:coding,automation',
-            'status' => 'required|string|in:started,in_progress,idle,finished,cancelled'
+            'status' => 'sometimes|string|in:started,in_progress,idle,finished,cancelled'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'user_id.required' => 'User id is missing',
+            'user_id.integer' => 'User id has to be a number',
+            'user_id.exists' => 'No user found',
+
+            'project_name.required' => 'Project name is missing',
+            'project_name.string' => 'Project name has to be string',
+            'project_name.max' => 'Project name is too big',
+
+            'project_type.required' => 'Project type is missing',
+            'project_type.in' => 'Invalid type value',
+
+            'status.required' => 'Status is missing',
+            'status.in' => 'Invalid status value'
         ];
     }
 }
