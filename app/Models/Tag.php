@@ -11,4 +11,9 @@ class Tag extends Model
         'name'
     ];
     use HasFactory;
+
+    public function projectTag()
+    {
+        return $this->hasMany(ProjectTag::class);
+    }
 }

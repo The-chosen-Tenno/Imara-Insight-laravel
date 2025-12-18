@@ -12,4 +12,14 @@ class ProjectSubAssignee extends Model
         'sub_assignee_id',
     ];
     use HasFactory;
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

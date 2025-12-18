@@ -13,4 +13,9 @@ class ShortLeave extends Model
         'reason'
     ];
     use HasFactory;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

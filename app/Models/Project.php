@@ -20,4 +20,19 @@ class Project extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function images()
+    {
+        return $this->hasMany(ProjectImage::class);
+    }
+
+    public function tags()
+    {
+        return $this->hasManyThrough(Tag::class, ProjectTag::class, 'project_id', 'id', 'id', 'tag_id');
+    }
+
+    public function subAssignees()
+    {
+        return $this->hasManyThrough(User::class, ProjectSubAssignee::class, 'project_id', 'id', 'id', 'user_id')->where('project_sub_assignees.status', 'added');
+    }
 }

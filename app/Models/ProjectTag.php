@@ -12,4 +12,15 @@ class ProjectTag extends Model
         'tag_id'
     ];
     use HasFactory;
+
+    public function project()
+    {
+        $this->belongsTo(Project::class);
+    }
+
+    public function tag()
+    {
+        $this->belongsTo(Tag::class);
+    }
 }
+
