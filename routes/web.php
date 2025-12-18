@@ -11,11 +11,11 @@ use App\Http\Controllers\AuthController;
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/auth/login', function () {
+Route::get('/', function () {
     return view('auth.login');
 })->name('login');
 

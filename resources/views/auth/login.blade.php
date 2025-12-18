@@ -1,6 +1,6 @@
 <?php
-require_once('../layouts/login_header.php');
-require_once('../../config.php');
+@include('layouts.login_header');
+// require_once('../../config.php');
 ?>
 
 <!-- Content -->
@@ -13,7 +13,7 @@ require_once('../../config.php');
                 <div class="card-body">
                     <!-- Logo -->
                     <div class="app-brand d-flex flex-column align-items-center">
-                        <img src="<?= asset('assets/img/favicon/favicon.png') ?>" alt="icon" class="mb-2" style="width:70px; height:70px; display:block;">
+                        <img src="/icon/favicon/favicon.png" alt="icon" class="mb-2" style="width:70px; height:70px; display:block;">
                         <span class="fw-bolder fs-4">Imara</span>
                     </div>
                     <!-- /Logo -->
@@ -22,7 +22,7 @@ require_once('../../config.php');
                     <p class="mb-4">Please sign-in to your account</p>
 
                     <!-- Login Form -->
-                    <form id="formAuthentication" class="mb-3" action="<?= ('../../services/auth.php') ?>" method="POST">
+                    <form id="formAuthentication" class="mb-3" action="/login" method="POST">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input
@@ -51,13 +51,13 @@ require_once('../../config.php');
 
                         </div>
                         <div class="mb-3">
-                            <button class="btn  d-grid w-100" type="submit" id="login" style="<?= $styleMap['imara-button-purple'] ?>">Sign in</button>
+                            <button class="btn  d-grid w-100" type="submit" id="login">Sign in</button>
                         </div>
                     </form>
 
                     <p class="text-center">
                         <span>New on our platform?</span>
-                        <a href="../auth/create-account.php">Create</a>
+                        <a href="../auth/create-account.blade.php">Create</a>
                     </p>
                 </div>
             </div>
@@ -81,8 +81,8 @@ require_once('../../config.php');
 </div>
 <!-- /Content -->
 
-<?php
-require_once('../layouts/login_footer.php');
+{{-- <?php
+// require_once('../layouts/login_footer.php');
 ?>
 
-<script src="../../assets/forms-js/login.js"></script>
+<script src="../../assets/forms-js/login.js"></script> --}}

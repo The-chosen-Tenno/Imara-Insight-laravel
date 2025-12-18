@@ -28,6 +28,6 @@ class AuthService
     public function destroySession()
     {
         auth()->logout();
-        return redirect('/auth/login');
+        return redirect('/');
     }
 }
