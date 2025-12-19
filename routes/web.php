@@ -11,38 +11,38 @@ use App\Http\Controllers\AuthController;
 
 
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 // Route::get('/', function () {
-//     return view('welcome');
+//     return view('auth.login');
+// })->name('login');
+
+// Route::get('/auth/create-account', function () {
+//     return view('auth.create-account');
 // });
 
-Route::get('/', function () {
-    return view('auth.login');
-})->name('login');
-
-Route::get('/auth/create-account', function () {
-    return view('auth.create-account');
-});
 
 
 
-
-Route::middleware('auth')->group(function () {
-    Route::get('/system/dashboard', function () {
-        return view('system.dashboard');
-    });
-    Route::get('/system/profile', function () {
-        return view('system.profile');
-    });
-    Route::get('/system/users', function () {
-        return view('system.users');
-    });
-    Route::get('/system/register', function () {
-        return view('system.register');
-    });
-    Route::get('/system/logs', function () {
-        return view('system.logs');
-    });
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/system/dashboard', function () {
+//         return view('system.dashboard');
+//     });
+//     Route::get('/system/profile', function () {
+//         return view('system.profile');
+//     });
+//     Route::get('/system/users', function () {
+//         return view('system.users');
+//     });
+//     Route::get('/system/register', function () {
+//         return view('system.register');
+//     });
+//     Route::get('/system/logs', function () {
+//         return view('system.logs');
+//     });
+// });
 
 //Project (tested)
 Route::middleware('auth')->controller(ProjectController::class)->group(function () {
