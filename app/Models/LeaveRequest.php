@@ -18,4 +18,9 @@ class LeaveRequest extends Model
         'status',
     ];
     use HasFactory;
+
+    public function User()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

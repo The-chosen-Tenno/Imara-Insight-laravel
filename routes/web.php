@@ -8,41 +8,27 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\ProjectTagController;
 use App\Http\Controllers\ProjectSubAssigneeController;
 use App\Http\Controllers\AuthController;
-
-
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
+})->name('login');
+
+Route::get('/auth/create_account', function () {
+    return view('auth.create_account');
+})->name('create.account');
+
+//View
+Route::middleware('auth')->prefix('pages')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'dashboardData']);
+    Route::view('/billing', 'pages.billing');
+    Route::view('/profile', 'pages.profile');
 });
 
-// Route::get('/', function () {
-//     return view('auth.login');
-// })->name('login');
-
-// Route::get('/auth/create-account', function () {
-//     return view('auth.create-account');
-// });
-
-
-
-
-// Route::middleware('auth')->group(function () {
-//     Route::get('/system/dashboard', function () {
-//         return view('system.dashboard');
-//     });
-//     Route::get('/system/profile', function () {
-//         return view('system.profile');
-//     });
-//     Route::get('/system/users', function () {
-//         return view('system.users');
-//     });
-//     Route::get('/system/register', function () {
-//         return view('system.register');
-//     });
-//     Route::get('/system/logs', function () {
-//         return view('system.logs');
-//     });
-// });
+//Auth
+Route::post('/user', [UserController::class, 'NewUser'])->name('store.user');
+Route::post('/login', [AuthController::class, 'Login']);
+Route::post('/logout', [AuthController::class, 'Logout'])->middleware('auth');
 
 //Project (tested)
 Route::middleware('auth')->controller(ProjectController::class)->group(function () {
@@ -53,7 +39,6 @@ Route::middleware('auth')->controller(ProjectController::class)->group(function 
     Route::patch('/project/{id}', 'UpdateProject');
     Route::patch('/project/status/{id}', 'UpdateStatus');
 });
-
 
 //Project Images
 Route::get('/images/project/{id}', [ProjectImageController::class, 'ImagesByProjectId']);
@@ -75,7 +60,6 @@ Route::patch('/sub-assignee/remove', [ProjectSubAssigneeController::class, 'Remo
 Route::middleware('auth')->controller(UserController::class)->group(function () {
     Route::get('/users', 'AllUsers');
     Route::get('/user/{id}', 'UserById');
-    Route::post('/user', 'NewUser');
     Route::patch('/user/{id}', 'UpdateUser');
     Route::patch('/user/accept/{id}', 'AcceptUser');
     Route::patch('/user/decline/{id}', 'DeclineUser');
@@ -86,7 +70,3 @@ Route::middleware('auth')->prefix('tags')->controller(TagController::class)->gro
     Route::get('/', 'AllTags');
     Route::post('/', 'NewTags');
 });
-
-//Auth
-Route::post('/login', [AuthController::class, 'Login']);
-Route::post('/logout', [AuthController::class, 'Logout'])->middleware('auth');

@@ -21,7 +21,8 @@ class AuthService
 
         return response()->json([
             'message' => 'Logged in successfully',
-            'user' => auth()->user()
+            'user' => auth()->user(),
+            'redirect' => url('/pages/dashboard')
         ]);
     }
 

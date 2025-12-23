@@ -33,13 +33,10 @@ class UserService
     {
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
-        $user = User::create($data);
-        return response()->json(
-            [
-                'message' => 'Account created successfully',
-                'data' => $user
-            ]
-        );
+        User::create($data);
+        return response()->json([
+            'message' => 'Account creted successfully'
+        ]);
     }
 
     public function updateUser(UpdateUserRequest $request, $id)

@@ -14,14 +14,14 @@ class AuthController extends Controller
     {
         $this->AuthService = $AuthService;
     }
-    
+
     public function Login(StoreAuthRequest $request)
     {
-        $this->AuthService->saveSession($request);
+        return $this->AuthService->saveSession($request);
     }
 
     public function Logout()
     {
-        $this->AuthService->destroySession();
+        return $this->AuthService->destroySession();
     }
 }

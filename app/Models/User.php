@@ -58,13 +58,17 @@ class User extends Authenticatable
         return $this->hasOne(LeaveLimit::class);
     }
 
-    public function ProjectSubAssignee()
+    public function projectSubAssignee()
     {
         return $this->hasMany(ProjectSubAssignee::class)->where('project_sub_assignees.status', 'added');
     }
 
-    public function ShortLeaves()
+    public function shortLeaves()
     {
         return $this->hasMany(ShortLeave::class);
+    }
+    public function leaveRequests()
+    {
+        return $this->hasMany(LeaveRequest::class);
     }
 }
