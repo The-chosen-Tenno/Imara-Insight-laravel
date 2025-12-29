@@ -15,7 +15,9 @@ class UserService
     public function getAllByDesc()
     {
         $users = User::orderBy('created_at', 'desc')->get();
-        return $users;
+        return response()->json([
+            'users' => $users
+        ], 200);
     }
 
     public function getUserById($id)

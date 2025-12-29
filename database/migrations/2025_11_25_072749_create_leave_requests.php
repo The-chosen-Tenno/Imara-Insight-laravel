@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->enum('reason_type', ['annual', 'casual', 'medical'])->default('casual');
-            $table->string('leave_note')->nullable();
+            $table->string('description')->nullable();
             $table->enum('leave_duration', ['full', 'half', 'multi', 'short'])->default('full');
             $table->enum('half_day', ['first', 'second'])->nullable();
             $table->date('start_date');

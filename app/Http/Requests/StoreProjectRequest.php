@@ -11,7 +11,7 @@ class StoreProjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class StoreProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|integer|exists:users,id',
+            // 'user_id' => 'required|integer|exists:users,id',
             'project_name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'project_type' => 'required|string|in:coding,automation',
@@ -33,9 +33,9 @@ class StoreProjectRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'user_id.required' => 'User id is missing',
-            'user_id.integer' => 'User id has to be a number',
-            'user_id.exists' => 'No user found',
+            // 'user_id.required' => 'User id is missing',
+            // 'user_id.integer' => 'User id has to be a number',
+            // 'user_id.exists' => 'No user found',
 
             'project_name.required' => 'Project name is missing',
             'project_name.string' => 'Project name has to be string',
@@ -43,8 +43,6 @@ class StoreProjectRequest extends FormRequest
 
             'project_type.required' => 'Project type is missing',
             'project_type.in' => 'Invalid type value',
-
-            'status.required' => 'Status is missing',
             'status.in' => 'Invalid status value'
         ];
     }

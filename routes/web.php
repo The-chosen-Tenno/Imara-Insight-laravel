@@ -9,19 +9,24 @@ use App\Http\Controllers\ProjectTagController;
 use App\Http\Controllers\ProjectSubAssigneeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LeaveRequestsController;
 
-Route::get('/', function () {
-    return view('auth.login');
-})->name('login');
+// Route::get('/', function () {
+//     return view('auth.login');
+// })->middleware('guest')->name('login');
 
-Route::get('/auth/create_account', function () {
-    return view('auth.create_account');
-})->name('create.account');
+// Route::get('/auth/create_account', function () {
+//     return view('auth.create_account');
+// })->name('create.account');
 
+Route::middleware('guest')->group(function () {
+    Route::view('/', 'auth.login')->name('login');
+    Route::view('/register', 'auth.create_account');
+});
 //View
 Route::middleware('auth')->prefix('pages')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'dashboardData']);
-    Route::view('/billing', 'pages.billing');
+    Route::view('/dashboard', 'pages.dashboard');
+    Route::view('/leave', 'pages.leave-request');
     Route::view('/profile', 'pages.profile');
 });
 
@@ -66,7 +71,12 @@ Route::middleware('auth')->controller(UserController::class)->group(function () 
 });
 
 //Tag (tested)
-Route::middleware('auth')->prefix('tags')->controller(TagController::class)->group(function () {
-    Route::get('/', 'AllTags');
+Route::middleware('auth')->controller(TagController::class)->group(function () {
+    Route::get('/tags', 'AllTags');
     Route::post('/', 'NewTags');
+});
+
+// Leave Requests
+Route::middleware('auth')->controller(LeaveRequestsController::class)->group(function () {
+    Route::post('/request-leave', 'NewLeaveRequest');
 });

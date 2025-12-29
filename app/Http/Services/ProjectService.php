@@ -51,7 +51,7 @@ class ProjectService
     // Create Functions Start Here
     public function createNewProject(StoreProjectRequest $request)
     {
-        $projects = Project::create($request->validated());
+        $projects = auth()->user()->projects()->create($request->validated());
         return response()->json(
             [
                 'message' => 'Project created successfully',
