@@ -47,8 +47,8 @@
                                 </div>
 
                                 <!-- Single Date -->
-                                <div class="input-group input-group-outline mb-3" id="singleDate">
-                                    <label class="form-label">Leave Date</label>
+                                <div class="input-group input-group-static mb-3" id="singleDate">
+                                     <label>Leave Date</label>
                                     <input type="date" name="start_date" class="form-control">
                                 </div>
 
@@ -70,14 +70,14 @@
                                 <!-- Multi Day -->
                                 <div class="row d-none" id="multiDay">
                                     <div class="col-md-6 mb-3">
-                                        <div class="input-group input-group-outline">
-                                            <label class="form-label">Start Date</label>
+                                        <div class="input-group input-group-static">
+                                            <label class="">Start Date</label>
                                             <input type="date" name="start_date" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <div class="input-group input-group-outline">
-                                            <label class="form-label">End Date</label>
+                                        <div class="input-group input-group-static">
+                                            <label class="">End Date</label>
                                             <input type="date" name="end_date" class="form-control">
                                         </div>
                                     </div>

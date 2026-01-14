@@ -16,10 +16,13 @@ loginForm.addEventListener('submit', function (e) {
     }).then(response => response.json())
         .then(data => {
             messageDiv.innerHTML = `<div class="success">${data.message}</div>`;
-            loginForm.reset();
-            setTimeout(() => {
-                window.location.href = data.redirect;
-            }, 2000)
+            if (data.redirect) {
+                setTimeout(() => {
+                    window.location.href = data.redirect;
+                }, 1000)
+            } else {
+                loginForm.reset();
+            }
         }).catch(err => {
             let html = '<ul>';
             if (err.errors) {

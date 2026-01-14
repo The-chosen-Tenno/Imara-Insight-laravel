@@ -24,39 +24,67 @@
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
             </li>
+            
+            <li class="nav-item">
+                <a class="nav-link text-white {{ $activePage == 'projects' ? ' active bg-gradient-primary' : '' }} "
+                    href="/pages/projects">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dataset</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Projects</span>
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'leave' ? ' active bg-gradient-primary' : '' }} "
                     href="/pages/leave">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">home</i>
+                        <i class="material-icons opacity-10">event_busy</i>
                     </div>
                     <span class="nav-link-text ms-1">Request leave</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {{ $activePage == 'employees' ? ' active bg-gradient-primary' : '' }} "
+                    href="/pages/employees">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">diversity_1</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Employees</span>
                 </a>
             </li>
             </li>
             @if (auth()->user()->role === 'admin')
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white {{ $activePage == 'dashboard' ? ' active bg-gradient-primary' : '' }} "
+                    <a class="nav-link text-white {{ $activePage == 'leave-approvals' ? ' active bg-gradient-primary' : '' }} "
                         href="/pages/dashboard">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">home</i>
+                            <i class="material-icons opacity-10">free_cancellation</i>
                         </div>
-                        <span class="nav-link-text ms-1">Request leave</span>
+                        <span class="nav-link-text ms-1">Leave Approvals</span>
+                    </a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white {{ $activePage == 'leave-approvals' ? ' active bg-gradient-primary' : '' }} "
+                        href="/pages/dashboard">
+                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="material-icons opacity-10">person_add</i>
+                        </div>
+                        <span class="nav-link-text ms-1">Register</span>
                     </a>
                 </li>
                 </li>
             @endif
-
+            <div class="sidenav-footer position-absolute w-100 bottom-0 ">
+                <div class="mx-3">
+                    <a class="btn bg-gradient-primary w-100"
+                        href="/pages/profile"> <i
+                            class="material-icons opacity-10">account_circle</i>
+                        <span class="nav-link-text ms-1">Profile</span></a>
+                </div>
+            </div>
         </ul>
     </div>
-    <div class="sidenav-footer position-absolute w-100 bottom-0 ">
-        <div class="mx-3">
-            {{-- <a class="btn bg-gradient-primary w-100"
-                href="https://www.creative-tim.com/product/material-dashboard-pro-laravel" target="_blank"
-                type="button">Upgrade
-                to pro</a> --}}
-        </div>
-    </div>
+
 </aside>

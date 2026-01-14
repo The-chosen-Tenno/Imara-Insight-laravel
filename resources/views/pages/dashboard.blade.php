@@ -5,6 +5,7 @@
         <x-navbars.navs.auth titlePage="dashboard"></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid py-4">
+            {{-- My Projects --}}
             <div class="row">
                 <div class="col-12">
                     <div class="card my-4">
@@ -72,9 +73,10 @@
                                                             class="text-secondary text-xs font-weight-bold">14/09/20</span>
                                                     </td>
                                                     <td class="align-middle">
-                                                        <a href="javascript:;"
+                                                        <a type="button" id="editProject"
                                                             class="text-secondary font-weight-bold text-xs edit-project-btn"
-                                                            data-toggle="tooltip" data-original-title="Edit user" data-id="{{ $project->id }}">
+                                                            data-bs-toggle="modal" data-bs-target="#editProjectModal"
+                                                            data-id="{{ $project->id }}"">
                                                             Edit
                                                         </a>
                                                     </td>
@@ -88,6 +90,7 @@
                     </div>
                 </div>
             </div>
+            {{-- My Leaves --}}
             <div class="row">
                 <div class="col-12">
                     <div class="card my-4">
@@ -95,7 +98,8 @@
                             <div
                                 class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 px-3 d-flex justify-content-between align-items-center">
                                 <h6 class="text-white text-capitalize m-0">My Leave Requests</h6>
-                                <button class="btn bg-gradient-dark mb-0">
+                                <button class="btn bg-gradient-dark mb-0" data-bs-toggle="modal"
+                                    data-bs-target="#addShortLeave" id="addShortLeavebutton">
                                     <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add Short Leave
                                 </button>
                             </div>
@@ -199,7 +203,7 @@
                             <label class="form-label">Project Name</label>
                             <input type="text" class="form-control" name="project_name" required>
                         </div>
-                        <div class="input-group input-group-outline mb-3">
+                        <div class="input-group input-group-dynamic input-group-outline mb-3">
 
                             <textarea class="form-control" name="description" rows="4" placeholder="Description"></textarea>
                         </div>
@@ -219,8 +223,8 @@
                             <select class="form-control" name="tags[]" id="tagSelect" multiple>
                             </select>
                         </div>
-                        <div class="input-group input-group-outline mb-3">
-                            <label class="form-label" for="projectImages">Upload Project Images</label>
+                        <div class="input-group input-group-static mb-4">
+                            <label class="" for="projectImages">Upload Project Images</label>
                             <input type="file" class="form-control" name="project_images[]" id="projectImages"
                                 accept="image/*" multiple>
                         </div>
@@ -238,9 +242,8 @@
             </div>
         </div>
     </div>
-
-        {{-- Edit project model --}}
-    <div class="modal fade" id="EditProjectModal" tabindex="-1" aria-hidden="true">
+    {{-- Edit project model --}}
+    <div class="modal fade" id="editProjectModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content border-radius-lg">
 
@@ -254,7 +257,7 @@
                 </div>
 
                 <!-- Body -->
-                <form action="" method="POST" id="createProjectForm">
+                <form action="" method="POST" id="editProjectForm">
                     @csrf
                     <input type="hidden" class="form-control" name="user_id" required>
                     <div class="modal-body px-4 pb-3">
@@ -300,6 +303,51 @@
 
             </div>
         </div>
+    </div><style>
+    </style>
+    {{-- Add short leave --}}
+    <div class="modal fade" id="addShortLeave" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content border-radius-lg">
+
+                <!-- Header -->
+                <div class="modal-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div
+                        class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 px-3 w-100 d-flex justify-content-between align-items-center">
+                        <h6 class="text-white m-0">Add Short Leave</h6>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                </div>
+
+                <!-- Body -->
+                <form action="" method="POST" id="createProjectForm">
+                    @csrf
+
+                    <div class="modal-body px-4 pb-3">
+                        <div id="currentTime" class=" mb-3 text-center"></div>
+                        <div class="input-group input-group-outline mb-3">
+                            <label class="form-label">Duration</label>
+                            <input type="number" class="form-control" name="duration" required min="1"
+                                max="2" step="1">
+                        </div>
+                        <div class="input-group input-group-outline mb-3">
+                            <label class="form-label">Reason (optional)</label>
+                            <input type="text" class="form-control" name="reason">
+                        </div>
+                        <div id="imagePreviewContainer" class="mb-3"></div>
+                        <div id="messageDiv" class="mb-3"></div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="modal-footer border-0 pt-0 px-4">
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn bg-gradient-primary">Save</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
     </div>
 </x-layout>
+
 <script src="{{ asset('assets/custom/js/dashboard.js') }}"></script>

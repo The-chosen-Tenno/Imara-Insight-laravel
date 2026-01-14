@@ -1,71 +1,64 @@
-
 const addProject = document.getElementById('addProject');
 const imageInput = document.getElementById('projectImages');
 const createProjectForm = document.getElementById('createProjectForm');
+const addShortLeaveButton = document.getElementById('addShortLeavebutton');
 
-let tagChoices = null;
-let subAssigneeChoices = null;
+let tagSelectInstance = null;
+let subAssigneeSelectInstance = null;
 
 addProject.addEventListener('click', function (e) {
     e.preventDefault();
-    const createProjectForm = document.getElementById('createProjectForm');
+
     createProjectForm.reset();
+
     const tagSelect = document.getElementById('tagSelect');
     const subAssigneeSelect = document.getElementById('subAssigneeSelect');
-    if (!tagChoices) {
-        tagChoices = new Choices(tagSelect, {
-            removeItemButton: true,
-            duplicateItemsAllowed: false,
-            addItems: true,
-            maxItemCount: 10,
-            placeholder: true,
-            placeholderValue: 'Search or type tags',
-        });
-    }
-    fetch('/tags', {
-        method: 'GET'
-    }).then(response => response.json())
+
+    if (tagSelectInstance) tagSelectInstance.destroy();
+    if (subAssigneeSelectInstance) subAssigneeSelectInstance.destroy();
+
+    fetch('/tags')
+        .then(res => res.json())
         .then(data => {
-            const tagFormatted = data.tags.map(tag => ({
-                value: tag.id,
-                label: tag.name
-            }));
-            tagChoices.setChoices(tagFormatted, 'value', 'label', false);
+            tagSelectInstance = new TomSelect(tagSelect, {
+                options: data.tags.map(tag => ({
+                    value: tag.id,
+                    text: tag.name
+                })),
+                create: true,
+                maxItems: 10,
+                plugins: ['remove_button'],
+                placeholder: 'Search or type tags'
+            });
         });
-    if (!subAssigneeChoices) {
-        subAssigneeChoices = new Choices(subAssigneeSelect, {
-            removeItemButton: true,
-            duplicateItemsAllowed: false,
-            addItems: true,
-            maxItemCount: 10,
-            placeholder: true,
-            placeholderValue: 'Search for users',
-        })
-    }
-    fetch('/users', {
-        method: 'GET'
-    }).then(response => response.json())
+
+    fetch('/users')
+        .then(res => res.json())
         .then(data => {
-            const subAssigneeFormatted = data.users.map(sub => ({
-                value: sub.id,
-                label: sub.user_name
-            }));
-            subAssigneeChoices.setChoices(subAssigneeFormatted, 'value', 'label', false);
+            subAssigneeSelectInstance = new TomSelect(subAssigneeSelect, {
+                options: data.users.map(user => ({
+                    value: user.id,
+                    text: user.user_name
+                })),
+                maxItems: 10,
+                plugins: ['remove_button'],
+                placeholder: 'Search for users'
+            });
         });
-})
+});
 
 imageInput.addEventListener('change', function () {
     const imagePreview = document.getElementById('imagePreviewContainer');
     imagePreview.innerHTML = '';
-    const files = Array.from(this.files);
-    files.forEach((file, index) => {
+
+    Array.from(this.files).forEach(file => {
         if (!file.type.startsWith('image/')) return;
 
         const reader = new FileReader();
 
         reader.onload = function (e) {
             const wrapper = document.createElement('div');
-            wrapper.classList.add('mb-2', 'd-flex', 'align-items-center', 'gap-2');
+            wrapper.className = 'mb-2 d-flex align-items-center gap-2';
 
             const img = document.createElement('img');
             img.src = e.target.result;
@@ -85,7 +78,7 @@ imageInput.addEventListener('change', function () {
             desc.type = 'text';
             desc.name = 'project_images_description[]';
             desc.placeholder = 'Image description';
-            desc.classList.add('form-control', 'mt-1');
+            desc.className = 'form-control mt-1';
 
             info.appendChild(name);
             info.appendChild(desc);
@@ -98,12 +91,14 @@ imageInput.addEventListener('change', function () {
 
         reader.readAsDataURL(file);
     });
-})
+});
 
 createProjectForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    messageDiv = document.getElementById('messageDiv');
+
+    const messageDiv = document.getElementById('messageDiv');
     messageDiv.innerHTML = '';
+
     const newProjectData = new FormData(createProjectForm);
 
     fetch('/project', {
@@ -113,24 +108,45 @@ createProjectForm.addEventListener('submit', function (e) {
             'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
         },
         body: newProjectData
-    }).then(response => response.json())
+    })
+        .then(res => res.json())
         .then(data => {
-            messageDiv.innerHTML = `<div class='success'>${data.message}</div>`;
+            messageDiv.innerHTML = `<div class="success">${data.message}</div>`;
             createProjectForm.reset();
             location.reload();
-        }).catch(err => {
-            messageDiv.innerHTML = `<div class='danger'>${err.message}</div>`
         })
-})
+        .catch(err => {
+            messageDiv.innerHTML = `<div class="danger">${err.message}</div>`;
+        });
+});
 
 document.addEventListener('click', function (e) {
     if (!e.target.classList.contains('edit-project-btn')) return;
+
     const projectId = e.target.dataset.id;
 
-    fetch(`/project/${projectId}`, {
-        method: 'GET'
-    }).then(response => response.json())
+    fetch(`/project/${projectId}`)
+        .then(res => res.json())
         .then(data => {
+            const form = document.getElementById('editProjectForm');
 
-        })
-})
+            form.querySelector('input[name="user_id"]').value = data.user_id;
+            form.querySelector('input[name="project_name"]').value = data.project_name;
+            form.querySelector('textarea[name="description"]').value = data.description || '';
+            form.querySelector('select[name="project_type"]').value = data.project_type;
+
+            document.getElementById('imagePreviewContainer').innerHTML = '';
+        });
+});
+
+addShortLeaveButton.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const currentTime = document.getElementById('currentTime');
+    const now = new Date();
+
+    const h = String(now.getHours()).padStart(2, '0');
+    const m = String(now.getMinutes()).padStart(2, '0');
+
+    currentTime.innerHTML = `Are you sure you want to take a short leave at: ${h}:${m}?`;
+});

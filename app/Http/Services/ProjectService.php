@@ -32,6 +32,12 @@ class ProjectService
         return $projects;
     }
 
+    public function returnViewWithProjects()
+    {
+        $projects = Project::all();
+        return view('pages.projects', compact('projects'));
+    }
+
     public function getAllProjectById($project_id)
     {
         if (!is_numeric($project_id)) {

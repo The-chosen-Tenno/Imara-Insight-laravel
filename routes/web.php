@@ -21,13 +21,17 @@ use App\Http\Controllers\LeaveRequestsController;
 
 Route::middleware('guest')->group(function () {
     Route::view('/', 'auth.login')->name('login');
-    Route::view('/register', 'auth.create_account');
+    Route::view('/register', 'auth.create_account')->name('create.account');
 });
 //View
 Route::middleware('auth')->prefix('pages')->group(function () {
     Route::view('/dashboard', 'pages.dashboard');
     Route::view('/leave', 'pages.leave-request');
     Route::view('/profile', 'pages.profile');
+    Route::view('/employees', 'pages.employees');
+    Route::get('/projects', [ProjectController::class, 'ReturnView']);
+
+    // Route::view('/test', 'pages.laravel-examples.user-management');
 });
 
 //Auth

@@ -48,4 +48,9 @@ class ProjectController extends Controller
     {
         return $this->ProjectService->UpdateProjectStatus($request, $id);
     }
+
+    public function ReturnView()
+    {
+        return $this->ProjectService->returnViewWithProjects();
+    }
 }

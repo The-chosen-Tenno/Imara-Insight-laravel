@@ -1,0 +1,181 @@
+/* Project Logs Kanban Board */
+.columns-wrapper {
+    display: flex;
+    gap: 1px;
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
+    padding-bottom: 15px;
+}
+
+.column-container {
+    flex: 1 1 0;
+    min-width: calc((100% / 5) - 1px);
+    display: flex;
+    flex-direction: column;
+    background: #f0f4f8;
+    border-radius: 12px;
+    padding: 4px;
+}
+
+.column-header {
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.dropzone {
+    flex: 1 1 auto;
+    min-height: 150px;
+    max-height: 70vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-right: 5px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.dropzone.drag-over {
+    background-color: rgba(13, 110, 253, 0.1) !important;
+    border: 2px dashed #0d6efd !important;
+}
+
+.dropzone::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dropzone::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.box {
+    background: #fff;
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    user-select: none;
+}
+
+.box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+.box.dragging {
+    opacity: 0.5;
+    transform: rotate(2deg);
+}
+
+/* Drag handle */
+.drag-handle {
+    font-weight: 600;
+    cursor: grab;
+    margin-bottom: 6px;
+    font-size: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+}
+
+.box .badge {
+    font-size: 0.7rem;
+    margin: 2px 2px 2px 0;
+    background: #0d6efd;
+    color: #fff;
+    border-radius: 50px;
+    padding: 3px 6px;
+}
+
+.text-dark div {
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+@media(max-width:1200px) {
+    .column-container {
+        min-width: 200px;
+    }
+}
+
+.sortable-placeholder {
+    background: #dfe3eb;
+    border: 2px dashed #bbb;
+    height: 60px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+}
+
+.search-container {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+}
+
+#search {
+    width: 100%;
+    padding: 8px 35px 8px 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+#search:focus {
+    border-color: #740378;
+    box-shadow: 0 0 5px rgba(255, 154, 2, 0.5);
+    outline: none;
+}
+
+#clear-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    color: #888;
+    cursor: pointer;
+    display: none;
+}
+
+#clear-btn:hover {
+    color: #0d6efd;
+}
+
+/* Modal Select2 adjustments */
+.select2-container {
+    z-index: 1060 !important; /* Above modal */
+}
+
+.select2-dropdown {
+    z-index: 1061 !important;
+}
+
+/* Alert styling */
+.alert-container {
+    min-height: 50px;
+}
+
+.alert {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
