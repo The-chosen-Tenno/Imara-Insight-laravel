@@ -6,7 +6,7 @@ signUpform.addEventListener('submit', function (e) {
     messageDiv.innerHTML = '';
     const signUpformData = new FormData(signUpform);
 
-    fetch('/login', {
+    fetch('/user', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
