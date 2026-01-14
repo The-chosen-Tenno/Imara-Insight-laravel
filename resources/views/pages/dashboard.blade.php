@@ -123,27 +123,37 @@
                             </div>
                             <div class="card-body px-0 pb-2">
                                 <div class="table-responsive p-0">
-                                    <table class="table align-items-center mb-0">
+                                    <table class="data-table table align-items-center mb-0">
                                         <thead>
                                             <tr>
-                                                <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    Requested Date</th>
-                                                <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                    Leave Type</th>
-                                                <th
-                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    Duration</th>
-                                                <th
-                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    Start</th>
-                                                <th
-                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    End</th>
-                                                <th
-                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    Approval</th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
+                                                    style="padding: 12px 8px;">
+                                                    Requested Date
+                                                </th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7"
+                                                    style="padding: 12px 8px;">
+                                                    Leave Type
+                                                </th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7"
+                                                    style="padding: 12px 8px;">
+                                                    Duration
+                                                </th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7"
+                                                    style="padding: 12px 8px;">
+                                                    Start Date
+                                                </th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7"
+                                                    style="padding: 12px 8px;">
+                                                    End Date
+                                                </th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7"
+                                                    style="padding: 12px 8px;">
+                                                    Status
+                                                </th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7"
+                                                    style="padding: 12px 8px;">
+                                                    Actions
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -159,34 +169,53 @@
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">
-                                                                {{ $leave->created_at->format('Y-m-d') }}
-                                                            </h6>
-                                                            <p class="text-xs text-secondary mb-0">
-                                                            </p>
+                                                            <h6 class="mb-0 text-sm">{{ $leave->created_at->format('M d,
+                                                                Y') }}</h6>
+                                                            <p class="text-xs text-secondary mb-0">{{
+                                                                $leave->created_at->format('h:i A') }}</p>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <p class="text-xs font-weight-bold mb-0">
-                                                        {{ $leave->reason_type }}</p>
+                                                    <p class="text-xs font-weight-bold mb-0">{{ ucfirst(str_replace('_',
+                                                        ' ', $leave->reason_type)) }}</p>
                                                 </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <p class="text-xs font-weight-bold mb-0">
-                                                        {{ $leave->leave_duration }}</p>
+                                                <td class="align-middle text-center">
+                                                    <span class="badge badge-sm bg-gradient-secondary">
+                                                        {{ $leave->leave_duration }} {{ (int)$leave->leave_duration ===
+                                                        1 ? 'day' : 'days' }}
+                                                    </span>
                                                 </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <p class="text-xs font-weight-bold mb-0">
-                                                        {{ $leave->start_date }}</p>
+                                                <td class="align-middle text-center">
+                                                    <span class="text-xs font-weight-bold">
+                                                        {{ \Carbon\Carbon::parse($leave->start_date)->format('M d, Y')
+                                                        }}
+                                                    </span>
                                                 </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <p class="text-xs font-weight-bold mb-0">
-                                                        {{ $leave->end_date }}</p>
+                                                <td class="align-middle text-center">
+                                                    <span class="text-xs font-weight-bold">
+                                                        {{ \Carbon\Carbon::parse($leave->end_date)->format('M d, Y') }}
+                                                    </span>
                                                 </td>
-                                                <td class="align-middle text-center text-sm">
+                                                <td class="align-middle text-center">
                                                     <span
-                                                        class="badge badge-sm bg-gradient-{{ $leaveStatusColor[$leave->status] }}">{{
-                                                        $leave->status }}</span>
+                                                        class="badge badge-sm bg-gradient-{{ $leaveStatusColor[$leave->status] }}">
+                                                        <span class="me-1">●</span>{{ ucfirst($leave->status) }}
+                                                    </span>
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    <button class="btn btn-link text-secondary mb-0 px-1"
+                                                        data-bs-toggle="tooltip" title="View Details">
+                                                        <i class="fas fa-eye text-xs"></i>
+                                                    </button>
+                                                    <button class="btn btn-link text-secondary mb-0 px-1"
+                                                        data-bs-toggle="tooltip" title="Download">
+                                                        <i class="fas fa-download text-xs"></i>
+                                                    </button>
+                                                    <button class="btn btn-link text-secondary mb-0 px-1"
+                                                        data-bs-toggle="tooltip" title="More Options">
+                                                        <i class="fas fa-ellipsis-h text-xs"></i>
+                                                    </button>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -199,10 +228,10 @@
                 </div>
             </div>
     </main>
-@include('pages.modals.create-project-modal')
-@include('pages.modals.edit-project-modal')
-@include('pages.modals.create-project-modal')
-@include('pages.modals.create-short-leave-modal')
+    @include('pages.modals.create-project-modal')
+    @include('pages.modals.edit-project-modal')
+    @include('pages.modals.create-project-modal')
+    @include('pages.modals.create-short-leave-modal')
 </x-layout>
 
 <script src="{{ asset('assets/custom/js/dashboard.js') }}"></script>

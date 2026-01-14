@@ -48,7 +48,7 @@
 
                                 <!-- Single Date -->
                                 <div class="input-group input-group-static mb-3" id="singleDate">
-                                     <label>Leave Date</label>
+                                    <label>Leave Date</label>
                                     <input type="date" name="start_date" class="form-control">
                                 </div>
 

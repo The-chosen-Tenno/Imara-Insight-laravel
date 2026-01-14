@@ -34,13 +34,13 @@
                         </select>
                     </div>
                     <div class="input-group input-group-outline mb-3">
-                        <select class="form-control tom-select" name="sub-assignees[]" id="subAssigneeSelect" multiple
+                        <select class="form-control" name="sub-assignees[]" id="subAssigneeSelect" multiple
                             autocomplete="off">
                             <option value="">Please Select</option>
                         </select>
                     </div>
                     <div class="input-group input-group-outline mb-3">
-                        <select class="form-control tom-select" name="tags[]" id="tagSelect" multiple
+                        <select class="form-control" name="tags[]" id="tagSelect" multiple
                             autocomplete="off">
                             <option value="">Please Select</option>
                         </select>
