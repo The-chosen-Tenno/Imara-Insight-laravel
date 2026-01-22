@@ -232,6 +232,5 @@
     @include('pages.modals.edit-project-modal')
     @include('pages.modals.create-project-modal')
     @include('pages.modals.create-short-leave-modal')
+    <script src="{{ asset('assets/custom/js/dashboard.js') }}"></script>
 </x-layout>
-
-<script src="{{ asset('assets/custom/js/dashboard.js') }}"></script>

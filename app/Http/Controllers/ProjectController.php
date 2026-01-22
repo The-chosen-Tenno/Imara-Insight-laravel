@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Requests\UpdateProjectStatusRequest;
@@ -49,8 +49,9 @@ class ProjectController extends Controller
         return $this->ProjectService->UpdateProjectStatus($request, $id);
     }
 
-    public function ReturnView()
+    public function index()
     {
-        return $this->ProjectService->returnViewWithProjects();
+        $projects = Project::all();
+        return view('pages.projects', compact('projects'));
     }
 }

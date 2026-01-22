@@ -10,14 +10,7 @@ use App\Http\Controllers\ProjectSubAssigneeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LeaveRequestsController;
-
-// Route::get('/', function () {
-//     return view('auth.login');
-// })->middleware('guest')->name('login');
-
-// Route::get('/auth/create_account', function () {
-//     return view('auth.create_account');
-// })->name('create.account');
+use App\Http\Controllers\LeaveApprovalController;
 
 Route::middleware('guest')->group(function () {
     Route::view('/', 'auth.login')->name('login');
@@ -29,9 +22,6 @@ Route::middleware('auth')->prefix('pages')->group(function () {
     Route::view('/leave', 'pages.leave-request');
     Route::view('/profile', 'pages.profile');
     Route::view('/employees', 'pages.employees');
-    Route::get('/projects', [ProjectController::class, 'ReturnView']);
-
-    // Route::view('/test', 'pages.laravel-examples.user-management');
 });
 
 //Auth
@@ -41,7 +31,7 @@ Route::post('/logout', [AuthController::class, 'Logout'])->middleware('auth');
 
 //Project (tested)
 Route::middleware('auth')->controller(ProjectController::class)->group(function () {
-    Route::get('/projects', 'AllProjects');
+    Route::get('/pages/projects', 'index');
     Route::get('project/{id}', 'ProjectById');
     Route::get('/projects/user/{id}', 'ProjectByUserId');
     Route::post('/project', 'NewProject');
@@ -83,4 +73,11 @@ Route::middleware('auth')->controller(TagController::class)->group(function () {
 // Leave Requests
 Route::middleware('auth')->controller(LeaveRequestsController::class)->group(function () {
     Route::post('/request-leave', 'NewLeaveRequest');
+});
+
+// Leave Approval
+Route::middleware('auth')->controller(LeaveApprovalController::class)->group(function () {
+    Route::get('/pages/leave-approval', 'index');
+    Route::put('/approve/leave', 'approveLeaveRequest');
+    Route::put('/deny/leave', 'denyLeaveRequest');
 });

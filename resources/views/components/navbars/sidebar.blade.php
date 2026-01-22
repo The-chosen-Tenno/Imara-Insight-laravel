@@ -7,7 +7,8 @@
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
             aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0 d-flex text-wrap align-items-center" href="">
-            <img src="{{ asset('assets/custom/img/icons/favicon.png') }}" class="navbar-brand-img h-100" alt="main_logo">
+            <img src="{{ asset('assets/custom/img/icons/favicon.png') }}" class="navbar-brand-img h-100"
+                alt="main_logo">
             <span class="ms-2 font-weight-bold text-white">Imara - Insight</span>
         </a>
     </div>
@@ -24,7 +25,7 @@
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
             </li>
-            
+
             <li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'projects' ? ' active bg-gradient-primary' : '' }} "
                     href="/pages/projects">
@@ -54,32 +55,31 @@
             </li>
             </li>
             @if (auth()->user()->role === 'admin')
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white {{ $activePage == 'leave-approvals' ? ' active bg-gradient-primary' : '' }} "
-                        href="/pages/dashboard">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">free_cancellation</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Leave Approvals</span>
-                    </a>
-                </li>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white {{ $activePage == 'leave-approvals' ? ' active bg-gradient-primary' : '' }} "
-                        href="/pages/dashboard">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">person_add</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Register</span>
-                    </a>
-                </li>
-                </li>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {{ $activePage == 'leave-approval' ? ' active bg-gradient-primary' : '' }} "
+                    href="/pages/leave-approval">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">free_cancellation</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Leave Approval</span>
+                </a>
+            </li>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {{ $activePage == 'register' ? ' active bg-gradient-primary' : '' }} "
+                    href="/pages/dashboard">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">person_add</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Register</span>
+                </a>
+            </li>
+            </li>
             @endif
             <div class="sidenav-footer position-absolute w-100 bottom-0 ">
                 <div class="mx-3">
-                    <a class="btn bg-gradient-primary w-100"
-                        href="/pages/profile"> <i
+                    <a class="btn bg-gradient-primary w-100" href="/pages/profile"> <i
                             class="material-icons opacity-10">account_circle</i>
                         <span class="nav-link-text ms-1">Profile</span></a>
                 </div>
