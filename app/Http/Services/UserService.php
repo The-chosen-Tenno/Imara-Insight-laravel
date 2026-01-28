@@ -12,13 +12,6 @@ use App\Http\Requests\UpdateUserRequest;
 
 class UserService
 {
-    public function getAllByDesc()
-    {
-        $users = User::orderBy('created_at', 'desc')->get();
-        return response()->json([
-            'users' => $users
-        ], 200);
-    }
 
     public function getUserById($id)
     {

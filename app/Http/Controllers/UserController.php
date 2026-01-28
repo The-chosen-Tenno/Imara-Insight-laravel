@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Services\UserService;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -16,9 +17,10 @@ class UserController extends Controller
         $this->UserService = $UserService;
     }
 
-    public function AllUsers()
+    public function index()
     {
-        return $this->UserService->getAllByDesc();
+        $employees = User::all();
+        return view('pages.employees', compact('employees'));
     }
 
     public function UserById($id)
@@ -38,7 +40,7 @@ class UserController extends Controller
 
     public function AcceptUser($id)
     {
-        return $this->UserService->updateUserStatus($id ,'confirmed');
+        return $this->UserService->updateUserStatus($id, 'confirmed');
     }
 
     public function DeclineUser($id)

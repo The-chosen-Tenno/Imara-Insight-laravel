@@ -21,7 +21,6 @@ Route::middleware('auth')->prefix('pages')->group(function () {
     Route::view('/dashboard', 'pages.dashboard');
     Route::view('/leave', 'pages.leave-request');
     Route::view('/profile', 'pages.profile');
-    Route::view('/employees', 'pages.employees');
 });
 
 //Auth
@@ -57,7 +56,7 @@ Route::patch('/sub-assignee/remove', [ProjectSubAssigneeController::class, 'Remo
 
 // Users (tested)
 Route::middleware('auth')->controller(UserController::class)->group(function () {
-    Route::get('/users', 'AllUsers');
+    Route::get('/pages/employees', 'index');
     Route::get('/user/{id}', 'UserById');
     Route::patch('/user/{id}', 'UpdateUser');
     Route::patch('/user/accept/{id}', 'AcceptUser');

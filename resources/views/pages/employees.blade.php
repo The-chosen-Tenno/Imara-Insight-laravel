@@ -17,47 +17,9 @@
                     </div>
                     <div class="row px-4">
                         @php
-                        $employees = [
-                        [
-                        'user_name' => 'Drake',
-                        'email' => 'drake@gmail.com',
-                        'status' => 'active',
-                        'project_status' => 'in_progress',
-                        'image' => ''
-                        ],
-                        [
-                        'user_name' => 'Jane Smith',
-                        'email' => 'jane@gmail.com',
-                        'status' => 'active',
-                        'project_status' => 'idle',
-                        'image' => ''
-                        ],
-                        [
-                        'user_name' => 'Mike Johnson',
-                        'email' => 'mike@gmail.com',
-                        'status' => 'on_leave',
-                        'project_status' => 'completed',
-                        'image' => ''
-                        ],
-                        [
-                        'user_name' => 'Sarah Williams',
-                        'email' => 'sarah@gmail.com',
-                        'status' => 'active',
-                        'project_status' => 'in_progress',
-                        'image' => ''
-                        ],
-                        ];
-
                         $statusColors = [
                         'active' => 'success',
                         'inactive' => 'secondary',
-                        'on_leave' => 'warning'
-                        ];
-
-                        $projectStatusColors = [
-                        'idle' => 'secondary',
-                        'in_progress' => 'primary',
-                        'completed' => 'success'
                         ];
                         @endphp
 
@@ -65,7 +27,7 @@
                         <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
                             <div class="card employee-card h-100">
                                 <div class="card-header employee-card-header">
-                                    <img src="{{ $employee['image'] ? asset($employee['image']) : asset('assets/img/default-pfp.jpg') }}"
+                                    <img src="{{ $employee['photo'] ? asset($employee['photo']) : asset('assets/img/default-pfp.jpg') }}"
                                         class="employee-avatar me-3" alt="{{ $employee['user_name'] }}">
                                     <div>
                                         <h6 class="employee-name">{{ $employee['user_name'] }}</h6>
@@ -78,21 +40,21 @@
                                     </div>
                                     <div class="employee-info-row">
                                         <span class="employee-info-label">Status</span>
-                                        <span class="badge bg-gradient-{{ $statusColors[$employee['status']] }}">
-                                            {{ str_replace('_', ' ', ucfirst($employee['status'])) }}
+                                        <span class="badge bg-gradient-{{ $statusColors[$employee['user_status']] }}">
+                                            {{ str_replace('_', ' ', ucfirst($employee['user_status'])) }}
                                         </span>
                                     </div>
-                                    <div class="employee-info-row">
+                                    {{-- <div class="employee-info-row">
                                         <span class="employee-info-label">Project</span>
                                         <span
                                             class="badge bg-gradient-{{ $projectStatusColors[$employee['project_status']] }}">
                                             {{ str_replace('_', ' ', ucfirst($employee['project_status'])) }}
                                         </span>
-                                    </div>
-                                    <button class="btn btn-sm bg-gradient-primary w-100 btn-view" data-bs-toggle="modal"
+                                    </div> --}}
+                                    {{-- <button class="btn btn-sm bg-gradient-primary w-100 btn-view" data-bs-toggle="modal"
                                         data-bs-target="#viewEmployeeModal">
                                         View Profile
-                                    </button>
+                                    </button> --}}
                                 </div>
                             </div>
                         </div>
